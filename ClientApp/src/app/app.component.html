@@ -5,18 +5,15 @@
                 <b>E-Shop</b>
             </a>
             <button type="button" class="btn flex-column-reverse">
-                Shopping Bag
+                Shopping Bag <!--{{orderItems.length }}-->
             </button>
         </div>
     </nav>
 </header>
 <div class=".container-fluid">
     <div class="row">
-        <div id="list-example" class="btn-group col-4 position-relative">
-            <button class="list-group-item list-group-item-action" >Item 1</button>
-            <button class="list-group-item list-group-item-action" >Item 2</button>
-            <button class="list-group-item list-group-item-action" >Item 3</button>
-            <button class="list-group-item list-group-item-action" >Item 4</button>
+        <div id="list-example" class="btn-group-vertical col-4 position-relative" *ngFor ="let category in categories">
+            <button class="list-group-item list-group-item-action" >{{category.name}}</button>
         </div>
         <div data-spy="scroll" data-target="#list-example" data-offset="0" class="col-8" style="height: 700px; overflow-y: scroll">
             <br />
