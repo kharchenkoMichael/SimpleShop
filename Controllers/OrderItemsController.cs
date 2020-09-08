@@ -14,25 +14,27 @@ namespace SimpleShop.Controllers
   [ApiController]
   public class OrderItemsController : ControllerBase
   {
-    private readonly IRepository<OrderItem> _repository;
+    private readonly IRepository<OrderItem> _orderRepository;
+    private readonly IRepository<Product> _productRepository;
 
-    public OrderItemsController(IRepository<OrderItem> repository)
+    public OrderItemsController(IRepository<OrderItem> orderRepository, IProductRepository productRepository)
     {
-      _repository = repository;
+      _orderRepository = orderRepository;
+      _productRepository = productRepository;
     }
 
     // GET: api/OrderItems
     [HttpGet]
     public async Task<ActionResult<IEnumerable<OrderItem>>> GetOrderItems()
     {
-      return Ok(await _repository.GetAll());
+      return Ok(await _orderRepository.GetAll());
     }
 
     // GET: api/OrderItems/5
     [HttpGet("{id}")]
     public async Task<ActionResult<OrderItem>> GetOrderItem(int id)
     {
-      var orderItem = await _repository.GetById(id);
+      var orderItem = await _orderRepository.GetById(id);
 
       if (orderItem == null)
       {
@@ -53,15 +55,15 @@ namespace SimpleShop.Controllers
         return BadRequest();
       }
 
-      _repository.Update(orderItem);
+      _orderRepository.Update(orderItem);
 
       try
       {
-        await _repository.SaveChanges();
+        await _orderRepository.SaveChanges();
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!_repository.Exists(id))
+        if (!_orderRepository.Exists(id))
         {
           return NotFound();
         }
@@ -80,14 +82,14 @@ namespace SimpleShop.Controllers
     [HttpPost]
     public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItem orderItem)
     {
-      _repository.Create(orderItem);
+      _orderRepository.Create(orderItem);
       try
       {
-        await _repository.SaveChanges();
+        await _orderRepository.SaveChanges();
       }
       catch (DbUpdateException)
       {
-        if (_repository.Exists(orderItem.ProductId))
+        if (_orderRepository.Exists(orderItem.ProductId))
         {
           return Conflict();
         }
@@ -104,16 +106,39 @@ namespace SimpleShop.Controllers
     [HttpDelete("{id}")]
     public async Task<ActionResult<OrderItem>> DeleteOrderItem(int id)
     {
-      var orderItem = await _repository.GetById(id);
+      var orderItem = await _orderRepository.GetById(id);
       if (orderItem == null)
       {
         return NotFound();
       }
 
-      _repository.Delete(orderItem);
-      await _repository.SaveChanges();
+      _orderRepository.Delete(orderItem);
+      await _orderRepository.SaveChanges();
 
       return orderItem;
+    }
+
+    // DELETE: api/OrderItems
+    [HttpDelete]
+    public async Task<ActionResult> Delete()
+    {
+      var orderItems = await _orderRepository.GetAll();
+      foreach (var orderItem in orderItems)
+      {
+        _orderRepository.Delete(orderItem);
+        var product = orderItem.Product;
+
+        if (product.NumberOfItemsInStock < orderItem.Count)
+          return BadRequest();
+
+        product.NumberOfItemsInStock -= orderItem.Count;
+        _productRepository.Update(product);
+      }
+
+      await _productRepository.SaveChanges();
+      await _orderRepository.SaveChanges();
+
+      return Ok();
     }
   }
 }

@@ -23,7 +23,7 @@ namespace SimpleShop.Repositories
 
     public async Task<IEnumerable<OrderItem>> GetAll()
     {
-      return await _context.OrderItems.ToListAsync();
+      return await _context.OrderItems.Include(item => item.Product).ToListAsync();
     }
 
     public async Task<OrderItem> GetById(int id)

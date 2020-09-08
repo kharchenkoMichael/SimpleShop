@@ -1,0 +1,1 @@
+{"version":3,"file":"order-list-item.component.js","sourceRoot":"","sources":["order-list-item.component.ts"],"names":[],"mappings":";;;;;;AAAA,OAAO,EAAE,KAAK,EAAE,SAAS,EAAE,MAAM,eAAe,CAAC;AAOjD,IAAa,cAAc,GAA3B,MAAa,cAAc;CAE1B,CAAA;AADY;IAAR,KAAK,EAAE;6CAAkB;AADjB,cAAc;IAJ1B,SAAS,CAAC;QACP,QAAQ,EAAE,OAAO;QACjB,WAAW,EAAE,kCAAkC;KAClD,CAAC;GACW,cAAc,CAE1B;SAFY,cAAc"}

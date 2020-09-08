@@ -1,68 +1,39 @@
-﻿<header>
+﻿<header >
     <nav class="navbar navbar-light bg-white border-bottom mb-3">
-        <div class="container-fluid">
+        <div class="container" style="height: 7vh">
             <a class="navbar-brand">
-                <b>E-Shop</b>
+                <button class="btn" type="button" (click)="ngOnInit()">E-Shop</button>
+                <span *ngIf="currentCategory">{{currentCategory.name}}</span>
             </a>
-            <button type="button" class="btn flex-column-reverse">
-                Shopping Bag <!--{{orderItems.length }}-->
-            </button>
+            <div>
+                <button class="btn flex-column-reverse" style="width: 200px" type="button" (click)="change()">
+                    Shopping Bag <span *ngIf="orderCount">{{orderCount}}</span>
+                </button>
+                <div *ngIf="dropDown" style="position: absolute; z-index: 1; padding: 10px 10px; background-color: aliceblue">
+                    <order *ngFor="let order of orderItems" [order]="order"></order>
+                    <button class="btn btn-primary" type="button" (click)="apply()">{{fullPrice}} Confirm and pay</button>
+                </div>
+            </div>
         </div>
     </nav>
 </header>
-<div class=".container-fluid">
+<div class="container">
     <div class="row">
-        <div id="list-example" class="btn-group-vertical col-4 position-relative" *ngFor ="let category in categories">
-            <button class="list-group-item list-group-item-action" >{{category.name}}</button>
+        <div class="col-4 col-md-3">
+            <div class="row">
+                <div class="btn-group-vertical col">
+                    <button class="list-group-item list-group-item-action" *ngFor="let item of categories" (click)="setCategory(item)">{{item.name}}</button>
+                </div>
+            </div>
         </div>
-        <div data-spy="scroll" data-target="#list-example" data-offset="0" class="col-8" style="height: 700px; overflow-y: scroll">
-            <br />
-            <h4 id="list-item-1">Item 1</h4>
-            <p>
-                An stairs as be lovers uneasy. Able rent long in do we. Their saved linen downs tears son add music. Their saved linen downs tears son add music. Course sir people worthy horses add entire suffer. You high bed wish help call draw side. He felicity no an at packages answered opinions juvenile. Words to up style of since world
-
-                Dissimilar admiration so terminated no in contrasted it. Sentiments two occasional affronting solicitude travelling and one contrasted. Latter remark hunted enough vulgar say man. To sure calm much most long me mean. Bed uncommonly his discovered for estimating far. How one dull get busy dare far. Painful so he an comfort is manners. Ex
-
-                To things so denied admire. Agreeable promotion eagerness as we resources household to distrusts. Course sir people worthy horses add entire suffer. Uncommonly no it announcing melancholy an in. Advantages entreaties mr he apartments do. To things so denied admire. Small for ask shade water manor think men begin. Co
-            </p>
-            <h4 id="list-item-2">Item 2</h4>
-            <p>
-                An stairs as be lovers uneasy. Able rent long in do we. Their saved linen downs tears son add music. Their saved linen downs tears son add music. Course sir people worthy horses add entire suffer. You high bed wish help call draw side. He felicity no an at packages answered opinions juvenile. Words to up style of since world
-
-                Dissimilar admiration so terminated no in contrasted it. Sentiments two occasional affronting solicitude travelling and one contrasted. Latter remark hunted enough vulgar say man. To sure calm much most long me mean. Bed uncommonly his discovered for estimating far. How one dull get busy dare far. Painful so he an comfort is manners. Ex
-
-                To things so denied admire. Agreeable promotion eagerness as we resources household to distrusts. Course sir people worthy horses add entire suffer. Uncommonly no it announcing melancholy an in. Advantages entreaties mr he apartments do. To things so denied admire. Small for ask shade water manor think men begin. Co
-            </p>
-            <h4 id="list-item-3">Item 3</h4>
-            <p>
-                An stairs as be lovers uneasy. Able rent long in do we. Their saved linen downs tears son add music. Their saved linen downs tears son add music. Course sir people worthy horses add entire suffer. You high bed wish help call draw side. He felicity no an at packages answered opinions juvenile. Words to up style of since world
-
-                Dissimilar admiration so terminated no in contrasted it. Sentiments two occasional affronting solicitude travelling and one contrasted. Latter remark hunted enough vulgar say man. To sure calm much most long me mean. Bed uncommonly his discovered for estimating far. How one dull get busy dare far. Painful so he an comfort is manners. Ex
-
-                To things so denied admire. Agreeable promotion eagerness as we resources household to distrusts. Course sir people worthy horses add entire suffer. Uncommonly no it announcing melancholy an in. Advantages entreaties mr he apartments do. To things so denied admire. Small for ask shade water manor think men begin. Co
-            </p>
-            An stairs as be lovers uneasy. Able rent long in do we. Their saved linen downs tears son add music. Their saved linen downs tears son add music. Course sir people worthy horses add entire suffer. You high bed wish help call draw side. He felicity no an at packages answered opinions juvenile. Words to up style of since world
-
-            Dissimilar admiration so terminated no in contrasted it. Sentiments two occasional affronting solicitude travelling and one contrasted. Latter remark hunted enough vulgar say man. To sure calm much most long me mean. Bed uncommonly his discovered for estimating far. How one dull get busy dare far. Painful so he an comfort is manners. Ex
-
-            To things so denied admire. Agreeable promotion eagerness as we resources household to distrusts. Course sir people worthy horses add entire suffer. Uncommonly no it announcing melancholy an in. Advantages entreaties mr he apartments do. To things so denied admire. Small for ask shade water manor think men begin. Co
-            An stairs as be lovers uneasy. Able rent long in do we. Their saved linen downs tears son add music. Their saved linen downs tears son add music. Course sir people worthy horses add entire suffer. You high bed wish help call draw side. He felicity no an at packages answered opinions juvenile. Words to up style of since world
-
-            Dissimilar admiration so terminated no in contrasted it. Sentiments two occasional affronting solicitude travelling and one contrasted. Latter remark hunted enough vulgar say man. To sure calm much most long me mean. Bed uncommonly his discovered for estimating far. How one dull get busy dare far. Painful so he an comfort is manners. Ex
-
-            To things so denied admire. Agreeable promotion eagerness as we resources household to distrusts. Course sir people worthy horses add entire suffer. Uncommonly no it announcing melancholy an in. Advantages entreaties mr he apartments do. To things so denied admire. Small for ask shade water manor think men begin. CoAn stairs as be lovers uneasy. Able rent long in do we. Their saved linen downs tears son add music. Their saved linen downs tears son add music. Course sir people worthy horses add entire suffer. You high bed wish help call draw side. He felicity no an at packages answered opinions juvenile. Words to up style of since world
-
-            Dissimilar admiration so terminated no in contrasted it. Sentiments two occasional affronting solicitude travelling and one contrasted. Latter remark hunted enough vulgar say man. To sure calm much most long me mean. Bed uncommonly his discovered for estimating far. How one dull get busy dare far. Painful so he an comfort is manners. Ex
-
-            To things so denied admire. Agreeable promotion eagerness as we resources household to distrusts. Course sir people worthy horses add entire suffer. Uncommonly no it announcing melancholy an in. Advantages entreaties mr he apartments do. To things so denied admire. Small for ask shade water manor think men begin. Co
-            <h4 id="list-item-4">Item 4</h4>
-            <p>
-                An stairs as be lovers uneasy. Able rent long in do we. Their saved linen downs tears son add music. Their saved linen downs tears son add music. Course sir people worthy horses add entire suffer. You high bed wish help call draw side. He felicity no an at packages answered opinions juvenile. Words to up style of since world
-
-                Dissimilar admiration so terminated no in contrasted it. Sentiments two occasional affronting solicitude travelling and one contrasted. Latter remark hunted enough vulgar say man. To sure calm much most long me mean. Bed uncommonly his discovered for estimating far. How one dull get busy dare far. Painful so he an comfort is manners. Ex
-
-                To things so denied admire. Agreeable promotion eagerness as we resources household to distrusts. Course sir people worthy horses add entire suffer. Uncommonly no it announcing melancholy an in. Advantages entreaties mr he apartments do. To things so denied admire. Small for ask shade water manor think men begin. Co
-            </p>
+        <div *ngIf="!currentProduct" data-spy="scroll" data-target="#list-example" data-offset="0" class="col-8 col-md-9" style="height: 85vh; overflow-y: scroll">
+            <div class="row">
+                <prod class="col-12 col-md-6 col-lg-4" *ngFor="let product of currentProducts" [product]="product" (onBuy)="onBuy($event)" [withAmount]="false"></prod>
+            </div>
+        </div>
+        <div *ngIf="currentProduct" class="col-8 col-md-9">
+            <prod [product]="currentProduct" [withAmount]="true" (onOrder)="addToOrder($event)"></prod>
+            <p *ngIf="error" style="color: red">{{error}}</p>
         </div>
     </div>
 </div>
